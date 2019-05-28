@@ -7,6 +7,11 @@ import java.util.stream.IntStream;
 public interface AddressFormatter {
 
     /**
+     * 郵便マーク<br/>
+     */
+    public static final String POST_MARK = "〒";
+
+    /**
      * 郵便番号の区切り文字<br/>
      */
     public static final String POST_CODE_DELIMITER = "-";
@@ -15,10 +20,10 @@ public interface AddressFormatter {
      * 住所をフォーマットする。<br/>
      * @param prefecture 都道府県。
      * @param city 市区町村。
-     * @param sub 以降の住所。
+     * @param subs 以降の住所。
      * @return フォーマット済み住所を返却する。
      */
-    String formatAddress(String prefecture, String city, String sub);
+    String formatAddress(String prefecture, String city, String... subs);
 
     /**
      * 郵便番号をフォーマットする。<br/>
@@ -31,10 +36,12 @@ public interface AddressFormatter {
      * @return フォーマット済み郵便番号を返却する。
      */
     default String formatPostCode(int first, int last) {
-        return new StringJoiner(POST_CODE_DELIMITER)
-                .add(paddingLeft(3, '0', first))
-                .add(paddingLeft(4, '0', last))
-                .toString();
+        var builder = new StringBuilder(9)
+                .append(POST_MARK)
+                .append(paddingLeft(3, '0', first))
+                .append(POST_CODE_DELIMITER)
+                .append(paddingLeft(4, '0', last));
+        return builder.toString();
     }
 
     /**
