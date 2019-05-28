@@ -36,7 +36,7 @@ public interface AddressFormatter {
      * @return フォーマット済み郵便番号を返却する。
      */
     default String formatPostCode(int first, int last) {
-        var builder = new StringBuilder(9)
+        final var builder = new StringBuilder(9)
                 .append(POST_MARK)
                 .append(paddingLeft(3, '0', first))
                 .append(POST_CODE_DELIMITER)
@@ -56,13 +56,13 @@ public interface AddressFormatter {
      * @return 整数をパディングした値を返却する。
      */
     private String paddingLeft(int padCnt, char padChar, int value) {
-        final String padStr = IntStream
+        final var padStr = IntStream
                 .range(0, padCnt)
                 .mapToObj(num -> padChar)
                 .map(String::valueOf)
                 .reduce((x1, x2) -> x1.concat(x2))
                 .orElse("");
-        final String padded = padStr.concat(Integer.valueOf(value).toString());
+        final var padded = padStr.concat(Integer.valueOf(value).toString());
         return padded.substring(padded.length() - padCnt);
     }
 
