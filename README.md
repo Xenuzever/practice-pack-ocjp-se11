@@ -1,4 +1,4 @@
-# practice-pack-ocjp-se11
+# PRACTICE PACK OCJP SE11
 OCJP SE11 の練習用リポジトリです。
 ## GOLD
 ### TOPIC1: Javaの基礎
